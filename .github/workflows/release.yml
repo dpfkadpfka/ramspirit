@@ -1,0 +1,42 @@
+# src 폴더가 바뀌면 윈도우 실행 파일(RamSpirit.exe)을 만들어 깃허브 릴리스에 올린다.
+# 버전은 src/RamSpirit.cs 안의 Updater.Version 값을 따른다. 같은 버전 릴리스가 이미 있으면 건너뛴다.
+name: RamSpirit 만들기
+
+on:
+  push:
+    branches: [main]
+    paths: ['src/**', '.github/workflows/**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 버전 읽기
+        id: v
+        shell: pwsh
+        run: |
+          $m = Select-String -Path src/RamSpirit.cs -Pattern 'public const string Version = "([0-9]+\.[0-9]+\.[0-9]+)"'
+          if (-not $m) { Write-Error '버전을 찾지 못했어요'; exit 1 }
+          "version=$($m.Matches[0].Groups[1].Value)" >> $env:GITHUB_OUTPUT
+
+      - name: 실행 파일 만들기
+        shell: cmd
+        run: |
+          set FW=%WINDIR%\Microsoft.NET\Framework64\v4.0.30319
+          "%FW%\csc.exe" /nologo /target:winexe /optimize /codepage:65001 /win32icon:src\icon.ico /lib:"%FW%\WPF" /r:System.Windows.Forms.dll /r:System.Drawing.dll /r:WindowsBase.dll /r:UIAutomationClient.dll /r:UIAutomationTypes.dll /out:RamSpirit.exe src\RamSpirit.cs
+          if not exist RamSpirit.exe exit 1
+
+      - name: 릴리스에 올리기
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          V="v${{ steps.v.outputs.version }}"
+          if gh release view "$V" >/dev/null 2>&1; then echo "$V 릴리스가 이미 있어요"; exit 0; fi
+          gh release create "$V" RamSpirit.exe --title "RamSpirit $V" --notes "RamSpirit $V"
