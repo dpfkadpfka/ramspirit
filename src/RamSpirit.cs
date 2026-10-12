@@ -309,6 +309,8 @@ class Target
     public bool Hidden, Web, Pending;
     public DateTime CheckAt;
     public bool WantNewChat;
+    public bool Lost;      // 칸 안의 앱이 닫힘
+    public int Missing;    // 연속으로 안 보인 횟수
     public DateTime NewChatAt;
 
     public Target(AppInfo a) { App = a; }
@@ -336,6 +338,8 @@ class MainForm : Form
     string configFile, browser;
     bool firstRun;
     readonly HashSet<long> used = new HashSet<long>();
+    readonly Dictionary<long, int> origStyles = new Dictionary<long, int>();   // 앱 창의 원래 모양
+    Timer watch;
     readonly HashSet<long> released = new HashSet<long>();  // 풀어 둔 앱 창(다른 칸에서 바로 다시 쓸 수 있음)
     Dictionary<long, string> before;
     Dictionary<string, string> startApps;
@@ -668,6 +672,7 @@ class MainForm : Form
         var wait = new Label();
         wait.Dock = DockStyle.Fill; wait.Text = "불러오는 중..."; wait.ForeColor = Th.Sub;
         wait.TextAlign = ContentAlignment.MiddleCenter; wait.Font = font;
+        wait.Click += delegate { if (t.Lost || t.Hwnd == IntPtr.Zero) Reopen(t); };
         body.Controls.Add(wait);
 
         cell.Controls.Add(body);
@@ -1239,7 +1244,7 @@ class MainForm : Form
     void NewChat(Target t) { NewChat(t, false); }
     void NewChat(Target t, bool quiet)
     {
-        if (t.Hwnd == IntPtr.Zero) return;
+        if (t.Hwnd == IntPtr.Zero) { if (!quiet) Reopen(t); return; }
         IntPtr h = t.Hwnd;
         bool done = false;
         RunBackground(delegate
@@ -1266,6 +1271,37 @@ class MainForm : Form
         });
     }
 
+    // 앱이 닫혔으면 칸에 「다시 열기」 안내
+    void WatchApps()
+    {
+        if (WindowState == FormWindowState.Minimized) return;
+        foreach (Target t in T)
+        {
+            if (t.Hwnd == IntPtr.Zero || t.Hidden || !t.Cell.Visible) continue;
+            bool alive = W.IsWindow(t.Hwnd) && W.IsWindowVisible(t.Hwnd);
+            if (alive) { t.Missing = 0; continue; }
+            if (++t.Missing < 2) continue;
+            used.Remove(t.Hwnd.ToInt64());
+            t.Hwnd = IntPtr.Zero;
+            t.Pending = false;
+            t.Lost = true;
+            t.Wait.Text = t.App.Name + " 앱이 닫혔어요\n여기를 누르면 다시 열어요";
+            t.Wait.Cursor = Cursors.Hand;
+            t.Wait.Visible = true;
+        }
+    }
+
+    // 그 칸의 앱만 다시 열기
+    void Reopen(Target t)
+    {
+        t.Lost = false; t.Missing = 0;
+        t.Web = false;
+        t.Wait.Text = "다시 여는 중...";
+        t.Wait.Cursor = Cursors.Default;
+        t.Wait.Visible = true;
+        StartSearch(new List<Target> { t });
+    }
+
     bool released_ = false;
     public void SafeRelease() { ReleaseAll(); }
 
@@ -1273,6 +1309,7 @@ class MainForm : Form
     {
         if (released_) return;
         released_ = true;
+        if (watch != null) watch.Stop();
         if (timer != null) timer.Stop();
         // 기본: 붙어 있던 앱들도 같이 닫음 / Shift를 누른 채 닫으면 앱은 따로 창으로 남김
         bool keep = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
@@ -1299,6 +1336,11 @@ class MainForm : Form
         timer = new Timer();
         timer.Interval = 300;
         timer.Tick += delegate { Tick(); };
+        // 칸 안의 앱이 닫혔는지 1초마다 확인
+        watch = new Timer();
+        watch.Interval = 1000;
+        watch.Tick += delegate { WatchApps(); };
+        watch.Start();
         if (firstRun)
         {
             List<AppInfo> chosen = SettingsDialog();
@@ -1404,7 +1446,10 @@ class MainForm : Form
                 used.Add(kv.Key);
                 released.Remove(kv.Key);
                 t.Wait.Visible = false;
-                t.OldStyle = W.Attach(h, Handle);
+                int old = W.Attach(h, Handle);
+                if (!origStyles.ContainsKey(kv.Key)) origStyles[kv.Key] = old;   // 다시 붙여도 원래 모양 기억
+                t.OldStyle = origStyles[kv.Key];
+                t.Lost = false; t.Missing = 0;
                 t.Hwnd = h;
                 t.Pending = true;
                 t.CheckAt = DateTime.Now.AddMilliseconds(800);
@@ -1530,7 +1575,7 @@ static class Uia
 // ---------- 설치·자동 업데이트 ----------
 static class Updater
 {
-    public const string Version = "1.1.1";
+    public const string Version = "1.1.2";
     const string Repo = "dpfkadpfka/ramspirit";
 
     public static string InstallDir { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RamSpirit"); } }
