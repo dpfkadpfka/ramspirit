@@ -311,6 +311,8 @@ class Target
     public bool WantNewChat;
     public bool Lost;      // 칸 안의 앱이 닫힘
     public int Missing;    // 연속으로 안 보인 횟수
+    public int Misfit;     // 칸에서 벗어난 횟수
+    public bool Grown;     // 최소 크기 때문에 칸을 자동으로 키웠는지
     public DateTime NewChatAt;
 
     public Target(AppInfo a) { App = a; }
@@ -1279,7 +1281,7 @@ class MainForm : Form
         {
             if (t.Hwnd == IntPtr.Zero || t.Hidden || !t.Cell.Visible) continue;
             bool alive = W.IsWindow(t.Hwnd) && W.IsWindowVisible(t.Hwnd);
-            if (alive) { t.Missing = 0; continue; }
+            if (alive) { t.Missing = 0; KeepInCell(t); continue; }
             if (++t.Missing < 2) continue;
             used.Remove(t.Hwnd.ToInt64());
             t.Hwnd = IntPtr.Zero;
@@ -1289,6 +1291,69 @@ class MainForm : Form
             t.Wait.Cursor = Cursors.Hand;
             t.Wait.Visible = true;
         }
+    }
+
+    // 앱이 스스로 움직이거나 커지면 칸 안으로 되돌림.
+    // 최소 크기 때문에 칸에 안 들어가면: 웹으로 열 수 있는 앱은 웹 창으로, 설치된 프로그램은 그 줄·열을 자동으로 넓힘
+    void KeepInCell(Target t)
+    {
+        if (busy) return;
+        Rectangle r = t.Body.RectangleToScreen(t.Body.ClientRectangle);
+        W.RECT wr;
+        W.GetWindowRect(t.Hwnd, out wr);
+        int ww = wr.R - wr.L, wh = wr.B - wr.T;
+        bool moved = Math.Abs(wr.L - r.X) > 4 || Math.Abs(wr.T - r.Y) > 4 || Math.Abs(ww - r.Width) > 4 || Math.Abs(wh - r.Height) > 4;
+        if (!moved) { t.Misfit = 0; return; }
+        W.Place(t.Hwnd, r.X, r.Y, r.Width, r.Height);
+        bool over = ww > r.Width + 10 || wh > r.Height + 10;
+        if (!over) return;
+        if (++t.Misfit < 2) return;          // 한 번 더 맞춰 보고도 크면
+        if (!t.App.IsInstalled && !t.Web) { SwitchToWeb(t); return; }
+        if (t.App.IsInstalled && !t.Grown && solo < 0) { t.Grown = true; AutoGrow(t, ww, wh); return; }
+        if (t.Misfit == 4)
+            t.Lbl.Text = "  " + t.App.Name + "  (칸이 이 프로그램의 최소 크기보다 작아요 · 칸 수를 줄이거나 「크게 보기」를 써 주세요)";
+    }
+
+    // 웹 창으로 바꾸기
+    void SwitchToWeb(Target t)
+    {
+        IntPtr h = t.Hwnd;
+        if (h == IntPtr.Zero) return;
+        W.Detach(h, t.OldStyle, 80, 80, 1100, 800);
+        W.ShowWindow(h, 6);
+        used.Remove(h.ToInt64());
+        released.Add(h.ToInt64());
+        t.Hwnd = IntPtr.Zero; t.Pending = false; t.Misfit = 0;
+        t.Wait.Text = t.App.Name + " 앱이 칸보다 커서 웹 창으로 여는 중...";
+        t.Wait.Visible = true;
+        t.Web = true;
+        OpenWeb(t);
+        start = DateTime.Now;
+        if (timer != null && !timer.Enabled) timer.Start();
+    }
+
+    // 그 칸이 있는 줄(높이)과 열(너비)을 프로그램 최소 크기만큼 넓힘
+    void AutoGrow(Target t, int needW, int needH)
+    {
+        int n = T.Count, rows = n >= 4 ? 2 : 1, cols = n / rows;
+        EnsureRatio(cols, rows);
+        int i = T.IndexOf(t), c = i % cols, r = i / cols, g = 4;
+        int availW = area.ClientSize.Width - (cols + 1) * g, availH = area.ClientSize.Height - (rows + 1) * g;
+        if (rows > 1 && availH > 0)
+        {
+            double f = Math.Min(0.8, (needH + 60.0) / availH), other = 0;
+            for (int k = 0; k < rows; k++) if (k != r) other += rowW[k];
+            if (f > rowW[r] / (other + rowW[r])) rowW[r] = f * other / (1 - f);
+        }
+        if (cols > 1 && availW > 0)
+        {
+            double f = Math.Min(0.8, (needW + 24.0) / availW), other = 0;
+            for (int k = 0; k < cols; k++) if (k != c) other += colW[k];
+            if (f > colW[c] / (other + colW[c])) colW[c] = f * other / (1 - f);
+        }
+        SaveConfig();
+        DoLayout();
+        sendHint.Text = t.App.Name + " 프로그램이 들어가도록 칸 크기를 자동으로 넓혔어요. 「비율 초기화」로 되돌릴 수 있어요.";
     }
 
     // 그 칸의 앱만 다시 열기
@@ -1396,16 +1461,7 @@ class MainForm : Form
                 t.Lbl.Text = "  " + t.App.Name + "  (칸이 프로그램 최소 크기보다 작아요 · ＋로 키워 주세요)";
                 continue;
             }
-            if (!t.Web && t.Cell.Visible && over)
-            {
-                W.Detach(t.Hwnd, t.OldStyle, 80, 80, 1100, 800);
-                W.ShowWindow(t.Hwnd, 6);
-                t.Hwnd = IntPtr.Zero;
-                t.Wait.Text = t.App.Name + " 앱이 칸보다 커서 웹 창으로 여는 중...";
-                t.Wait.Visible = true;
-                t.Web = true;
-                OpenWeb(t);
-            }
+            if (!t.Web && t.Cell.Visible && over) SwitchToWeb(t);
         }
 
         bool anyLeft = false;
@@ -1449,7 +1505,7 @@ class MainForm : Form
                 int old = W.Attach(h, Handle);
                 if (!origStyles.ContainsKey(kv.Key)) origStyles[kv.Key] = old;   // 다시 붙여도 원래 모양 기억
                 t.OldStyle = origStyles[kv.Key];
-                t.Lost = false; t.Missing = 0;
+                t.Lost = false; t.Missing = 0; t.Misfit = 0;
                 t.Hwnd = h;
                 t.Pending = true;
                 t.CheckAt = DateTime.Now.AddMilliseconds(800);
@@ -1575,7 +1631,7 @@ static class Uia
 // ---------- 설치·자동 업데이트 ----------
 static class Updater
 {
-    public const string Version = "1.1.2";
+    public const string Version = "1.1.3";
     const string Repo = "dpfkadpfka/ramspirit";
 
     public static string InstallDir { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RamSpirit"); } }
