@@ -433,6 +433,17 @@ class MainForm : Form
         foreach (AppInfo a in LoadConfig()) AddTarget(a);
 
         area.Resize += delegate { DoLayout(); };
+        // 칸 사이 틈(가운데 십자 포함)을 끌어서 칸 크기 조절
+        area.MouseMove += delegate (object o, MouseEventArgs e) { SplitMove(e); };
+        area.MouseDown += delegate (object o, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Left || solo >= 0) return;
+            dragColAt = HitCol(e.X); dragRowAt = HitRow(e.Y);
+        };
+        area.MouseUp += delegate
+        {
+            if (dragColAt >= 0 || dragRowAt >= 0) { dragColAt = -1; dragRowAt = -1; SaveConfig(); }
+        };
         Move += delegate { SyncWindows(); };
         Resize += delegate { SyncWindows(); };
         FormClosing += delegate { ReleaseAll(); };
@@ -998,7 +1009,7 @@ class MainForm : Form
     void DoLayout()
     {
         if (area == null || T.Count == 0) return;
-        int Wd = area.ClientSize.Width, Ht = area.ClientSize.Height, g = 4;
+        int Wd = area.ClientSize.Width, Ht = area.ClientSize.Height, g = Gap;
         int n = T.Count;
         int rows = n >= 4 ? 2 : 1;
         int cols = n / rows;
@@ -1012,6 +1023,7 @@ class MainForm : Form
         for (int c = 0; c < cols; c++) { xs[c] = x; ws[c] = (c == cols - 1) ? (Wd - g - x) : (int)(availW * colW[c] / sc); x += ws[c] + g; }
         int y = g;
         for (int r = 0; r < rows; r++) { ys[r] = y; hs[r] = (r == rows - 1) ? (Ht - g - y) : (int)(availH * rowW[r] / sr); y += hs[r] + g; }
+        Lx = xs; Lw = ws; Ly = ys; Lh = hs;   // 끌어서 크기 조절할 때 씀
 
         for (int i = 0; i < n; i++)
         {
@@ -1031,6 +1043,62 @@ class MainForm : Form
         }
         SyncWindows();
         UpdateHint();
+    }
+
+    // ---------- 칸 사이 틈 끌기 ----------
+    const int Gap = 8;
+    int[] Lx = new int[0], Lw = new int[0], Ly = new int[0], Lh = new int[0];
+    int dragColAt = -1, dragRowAt = -1;
+    DateTime lastSplit = DateTime.MinValue;
+
+    int HitCol(int x)
+    {
+        for (int c = 0; c + 1 < Lx.Length; c++)
+        {
+            int gx = Lx[c] + Lw[c];
+            if (x >= gx - 3 && x <= gx + Gap + 3) return c;
+        }
+        return -1;
+    }
+
+    int HitRow(int y)
+    {
+        for (int r = 0; r + 1 < Ly.Length; r++)
+        {
+            int gy = Ly[r] + Lh[r];
+            if (y >= gy - 3 && y <= gy + Gap + 3) return r;
+        }
+        return -1;
+    }
+
+    void SplitMove(MouseEventArgs e)
+    {
+        if (dragColAt < 0 && dragRowAt < 0)
+        {
+            if (solo >= 0) { area.Cursor = Cursors.Default; return; }
+            bool c = HitCol(e.X) >= 0, r = HitRow(e.Y) >= 0;
+            area.Cursor = (c && r) ? Cursors.SizeAll : c ? Cursors.SizeWE : r ? Cursors.SizeNS : Cursors.Default;
+            return;
+        }
+        if ((DateTime.Now - lastSplit).TotalMilliseconds < 30) return;   // 너무 자주 다시 그리지 않게
+        lastSplit = DateTime.Now;
+        int k = dragColAt;
+        if (k >= 0 && k + 1 < Lx.Length && k + 1 < colW.Length)
+        {
+            int left = Lx[k], span = Lx[k + 1] + Lw[k + 1] - left - Gap;
+            int px = Math.Max(160, Math.Min(span - 160, e.X - left));
+            double total = colW[k] + colW[k + 1];
+            if (span > 320) { colW[k] = total * px / span; colW[k + 1] = total - colW[k]; }
+        }
+        k = dragRowAt;
+        if (k >= 0 && k + 1 < Ly.Length && k + 1 < rowW.Length)
+        {
+            int top = Ly[k], span = Ly[k + 1] + Lh[k + 1] - top - Gap;
+            int py = Math.Max(120, Math.Min(span - 120, e.Y - top));
+            double total = rowW[k] + rowW[k + 1];
+            if (span > 240) { rowW[k] = total * py / span; rowW[k + 1] = total - rowW[k]; }
+        }
+        DoLayout();
     }
 
     void SyncWindows()
@@ -1102,12 +1170,55 @@ class MainForm : Form
         t.SendTg.ForeColor = t.SendOn ? Th.Accent : Th.Sub;
     }
 
+    readonly List<string> attach = new List<string>();   // 함께 보낼 파일
+    Button fileBtn;
+
     void UpdateHint()
     {
         if (sendHint == null) return;
         int n = 0;
         foreach (Target t in T) if (t.SendOn && t.Cell.Visible) n++;
-        sendHint.Text = "Enter 보내기 · Shift+Enter 줄바꿈 · 지금 보이는 칸 중 " + n + "개에 보내요 (칸 제목의 「보내기 켬/끔」으로 고르기)";
+        string files = "";
+        if (attach.Count > 0)
+        {
+            var names = new List<string>();
+            for (int i = 0; i < attach.Count && i < 3; i++) names.Add(Path.GetFileName(attach[i]));
+            files = "첨부 " + attach.Count + "개(" + string.Join(", ", names.ToArray()) + (attach.Count > 3 ? " 외" : "") + ") · ";
+        }
+        sendHint.Text = files + "Enter 보내기 · Shift+Enter 줄바꿈 · 보이는 칸 중 " + n + "개에 보내요 · 파일은 입력창에 끌어다 놓아도 돼요";
+        if (fileBtn != null) fileBtn.Text = attach.Count > 0 ? "파일 " + attach.Count + "개" : "+ 파일";
+    }
+
+    void AddFiles(string[] paths)
+    {
+        if (paths == null) return;
+        foreach (string f in paths)
+            if (File.Exists(f) && !attach.Contains(f)) attach.Add(f);
+        UpdateHint();
+    }
+
+    void FileButtonClick()
+    {
+        if (attach.Count > 0)
+        {
+            var menu = new ContextMenuStrip();
+            var more = new ToolStripMenuItem("파일 더 넣기...");
+            more.Click += delegate { PickFiles(); };
+            var clear = new ToolStripMenuItem("첨부 비우기");
+            clear.Click += delegate { attach.Clear(); UpdateHint(); };
+            menu.Items.Add(more); menu.Items.Add(clear);
+            menu.Show(fileBtn, new Point(0, -menu.Height - 4));
+            return;
+        }
+        PickFiles();
+    }
+
+    void PickFiles()
+    {
+        var d = new OpenFileDialog();
+        d.Multiselect = true;
+        d.Title = "모든 칸에 함께 보낼 파일 고르기";
+        if (d.ShowDialog(this) == DialogResult.OK) AddFiles(d.FileNames);
     }
 
     void BuildComposer()
@@ -1127,12 +1238,31 @@ class MainForm : Form
         Th.Round(sendBtn, 14);
         sendHint = new Label();
         sendHint.Font = btnFont; sendHint.ForeColor = Th.Sub; sendHint.TextAlign = ContentAlignment.MiddleLeft;
-        comp.Controls.Add(box); comp.Controls.Add(sendBtn); comp.Controls.Add(sendHint);
+        fileBtn = new Button();
+        fileBtn.Text = "+ 파일"; fileBtn.Font = font;
+        Th.Chip(fileBtn, false);
+        Th.Round(fileBtn, 14);
+        fileBtn.Click += delegate { FileButtonClick(); };
+        comp.Controls.Add(box); comp.Controls.Add(fileBtn); comp.Controls.Add(sendBtn); comp.Controls.Add(sendHint);
+        // 파일을 입력창에 끌어다 놓으면 첨부
+        foreach (Control dc in new Control[] { comp, box, q })
+        {
+            dc.AllowDrop = true;
+            dc.DragEnter += delegate (object o, DragEventArgs e)
+            {
+                e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Copy : DragDropEffects.None;
+            };
+            dc.DragDrop += delegate (object o, DragEventArgs e)
+            {
+                if (e.Data.GetDataPresent(DataFormats.FileDrop)) AddFiles((string[])e.Data.GetData(DataFormats.FileDrop));
+            };
+        }
         comp.Resize += delegate
         {
             int w = comp.ClientSize.Width;
-            box.SetBounds(16, 12, Math.Max(120, w - 16 - 160 - 12), 50);
+            box.SetBounds(16, 12, Math.Max(120, w - 16 - 160 - 12 - 104), 50);
             q.SetBounds(16, 12, Math.Max(80, box.Width - 32), 28);
+            fileBtn.SetBounds(w - 16 - 150 - 8 - 96, 12, 96, 50);
             sendBtn.SetBounds(w - 16 - 150, 12, 150, 50);
             sendHint.SetBounds(20, 66, Math.Max(100, w - 40), 24);
         };
@@ -1184,7 +1314,8 @@ class MainForm : Form
     {
         if (busy) return;
         string text = q.Text.Trim();
-        if (text.Length == 0) return;
+        var files = new List<string>(attach);
+        if (text.Length == 0 && files.Count == 0) return;
         var targets = new List<IntPtr>();
         foreach (Target t in T)
             if (t.SendOn && t.Cell.Visible && t.Hwnd != IntPtr.Zero && W.IsWindow(t.Hwnd)) targets.Add(t.Hwnd);
@@ -1192,30 +1323,50 @@ class MainForm : Form
 
         string oldClip = null;
         try { if (Clipboard.ContainsText()) oldClip = Clipboard.GetText(); } catch { }
-        try { Clipboard.SetText(text); }
-        catch { sendHint.Text = "클립보드를 쓸 수 없어서 보내지 못했어요. 다시 눌러 주세요."; return; }
 
         busy = true;
-        q.Enabled = false; sendBtn.Enabled = false;
+        q.Enabled = false; sendBtn.Enabled = false; fileBtn.Enabled = false;
         sendHint.Text = "보내는 중... 끝날 때까지 마우스·키보드를 잠시 쓰지 말아 주세요";
         IntPtr me = Handle;
         RunBackground(delegate
         {
-            foreach (IntPtr h in targets) { try { PasteInto(h); } catch { } }
+            foreach (IntPtr h in targets) { try { PasteInto(h, text, files); } catch { } }
             System.Threading.Thread.Sleep(300);
         }, delegate
         {
             try { if (oldClip != null) Clipboard.SetText(oldClip); } catch { }
             W.ForceForeground(me);
-            q.Enabled = true; sendBtn.Enabled = true;
+            q.Enabled = true; sendBtn.Enabled = true; fileBtn.Enabled = true;
             q.Clear(); q.Focus();
+            attach.Clear();
             busy = false;
-            sendHint.Text = targets.Count + "개 칸에 보냈어요. 안 들어간 칸은 그 칸에 직접 붙여넣기(Ctrl+V)해 주세요.";
+            UpdateHint();
+            sendHint.Text = targets.Count + "개 칸에 보냈어요" + (files.Count > 0 ? " (파일 " + files.Count + "개 포함)" : "") + ". 안 들어간 칸은 그 칸에 직접 붙여넣기(Ctrl+V)해 주세요.";
         });
     }
 
-    // 그 앱 창을 앞으로 → 입력란 찾아 클릭(못 찾으면 창 아래쪽 가운데) → 붙여넣기 → Enter
-    static void PasteInto(IntPtr h)
+    // 클립보드는 화면 쪽 스레드에서만 바꿀 수 있어서 넘겨서 처리
+    void SetClipText(string t)
+    {
+        Invoke((System.Windows.Forms.MethodInvoker)delegate { try { Clipboard.SetText(t); } catch { } });
+    }
+
+    void SetClipFiles(List<string> files)
+    {
+        Invoke((System.Windows.Forms.MethodInvoker)delegate
+        {
+            try
+            {
+                var sc = new System.Collections.Specialized.StringCollection();
+                foreach (string f in files) sc.Add(f);
+                Clipboard.SetFileDropList(sc);
+            }
+            catch { }
+        });
+    }
+
+    // 그 앱 창을 앞으로 → 입력란 찾아 클릭(못 찾으면 창 아래쪽 가운데) → 글 붙여넣기 → 파일 붙여넣기 → Enter
+    void PasteInto(IntPtr h, string text, List<string> files)
     {
         W.ForceForeground(h);
         System.Threading.Thread.Sleep(180);
@@ -1230,10 +1381,21 @@ class MainForm : Form
             W.Click((r.L + r.R) / 2, r.B - 70);
         }
         System.Threading.Thread.Sleep(150);
-        W.Key(0x41, true);   // Ctrl+A (입력란에 남은 글 지우기)
-        W.Key(0x56, true);   // Ctrl+V
-        System.Threading.Thread.Sleep(300);
-        W.Key(0x0D, false);  // Enter
+        if (text.Length > 0)
+        {
+            SetClipText(text);
+            W.Key(0x41, true);   // Ctrl+A (입력란에 남은 글 지우기)
+            W.Key(0x56, true);   // Ctrl+V
+            System.Threading.Thread.Sleep(300);
+        }
+        if (files.Count > 0)
+        {
+            SetClipFiles(files);
+            W.Key(0x56, true);   // Ctrl+V (파일 붙여넣기)
+            // 파일이 올라갈 시간을 기다림
+            System.Threading.Thread.Sleep(Math.Min(7000, 1500 + 1000 * files.Count));
+        }
+        W.Key(0x0D, false);      // Enter
         System.Threading.Thread.Sleep(250);
     }
 
@@ -1631,7 +1793,7 @@ static class Uia
 // ---------- 설치·자동 업데이트 ----------
 static class Updater
 {
-    public const string Version = "1.1.3";
+    public const string Version = "1.2.0";
     const string Repo = "dpfkadpfka/ramspirit";
 
     public static string InstallDir { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RamSpirit"); } }
