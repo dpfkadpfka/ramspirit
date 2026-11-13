@@ -1,0 +1,395 @@
+﻿===== 00-켜는중 =====
+RamSpirit main=131644
+  [칸안] chrome 'Claude' 보임=True 제목줄=False 위치=520,105 493x604
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x604
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [ram] ramspirit 'Default IME' 보임=False 제목줄=False 위치=0,0 0x0
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 2개
+
+===== 01-켜기 =====
+RamSpirit main=131644
+  [칸안] chrome 'Claude' 보임=True 제목줄=False 위치=520,72 493x637
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x604
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [ram] ramspirit 'Default IME' 보임=False 제목줄=False 위치=0,0 0x0
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 2개
+
+===== 02-탭2 =====
+RamSpirit main=131644
+  [칸안] chrome 'ChatGPT' 보임=True 제목줄=False 위치=520,72 493x637
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x604
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x637
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [ram] ramspirit 'Default IME' 보임=False 제목줄=False 위치=0,0 0x0
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 2개
+
+===== 03-탭3 =====
+RamSpirit main=131644
+  [칸안] chrome 'Gemini' 보임=True 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'ChatGPT' 보임=True 제목줄=False 위치=520,72 493x311
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x278
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x637
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x637
+  [칸안] grok bot 'Grok Bot' 보임=True 제목줄=False 위치=11,430 493x279
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [ram] ramspirit 'Default IME' 보임=False 제목줄=False 위치=0,0 0x0
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 4개
+
+===== 03b-클로드앱1웹3 =====
+RamSpirit main=131644
+  [칸안] chrome 'Claude' 보임=True 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'Claude' 보임=True 제목줄=False 위치=11,397 493x312
+  [칸안] chrome 'Claude' 보임=True 제목줄=False 위치=520,72 493x311
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x278
+  [칸안] chrome 'Gemini' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x637
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x637
+  [칸안] grok bot 'Grok Bot' 보임=False 제목줄=False 위치=11,430 493x279
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [ram] ramspirit 'Default IME' 보임=False 제목줄=False 위치=0,0 0x0
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 4개
+
+===== 04-탭1로 =====
+RamSpirit main=131644
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x604
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=11,397 493x312
+  [칸안] chrome 'Gemini' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x637
+  [칸안] chrome 'Claude' 보임=True 제목줄=False 위치=520,72 493x637
+  [칸안] grok bot 'Grok Bot' 보임=False 제목줄=False 위치=11,430 493x279
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [ram] ramspirit 'Default IME' 보임=False 제목줄=False 위치=0,0 0x0
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 2개
+
+===== 05-모두새대화 =====
+RamSpirit main=131644
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x604
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=11,397 493x312
+  [칸안] chrome 'Gemini' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x637
+  [칸안] chrome 'Claude' 보임=True 제목줄=False 위치=520,72 493x637
+  [칸안] grok bot 'Grok Bot' 보임=False 제목줄=False 위치=11,430 493x279
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [ram] ramspirit 'Default IME' 보임=False 제목줄=False 위치=0,0 0x0
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 2개
+
+===== H1-탭에마우스 =====
+RamSpirit main=131644
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x604
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=11,397 493x312
+  [칸안] chrome 'Gemini' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x637
+  [칸안] chrome 'Claude' 보임=True 제목줄=False 위치=520,72 493x637
+  [칸안] grok bot 'Grok Bot' 보임=False 제목줄=False 위치=11,430 493x279
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [ram] ramspirit 'Default IME' 보임=False 제목줄=False 위치=0,0 0x0
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 2개
+
+팝업 위치 632,0
+===== H2-수정창 =====
+RamSpirit main=131644
+  [ram] ramspirit '? ??' 보임=True 제목줄=False 위치=282,90 460x540
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x604
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=11,397 493x312
+  [칸안] chrome 'Gemini' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x637
+  [칸안] chrome 'Claude' 보임=True 제목줄=False 위치=520,72 493x637
+  [칸안] grok bot 'Grok Bot' 보임=False 제목줄=False 위치=11,430 493x279
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 3개
+
+===== 06-내리기 =====
+RamSpirit main=131644 (내려 둠)
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x637
+  [칸안] claude 'Claude' 보임=False 제목줄=False 위치=11,105 493x604
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=11,397 493x312
+  [칸안] chrome 'Gemini' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x637
+  [칸안] grok bot 'Grok Bot' 보임=False 제목줄=False 위치=11,430 493x279
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-32000,-32000 160x28
+  [ram] ramspirit 'Default IME' 보임=False 제목줄=False 위치=0,0 0x0
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 0개
+
+===== 07-올리기 =====
+RamSpirit main=131644
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x604
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=11,397 493x312
+  [칸안] chrome 'Gemini' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x637
+  [칸안] chrome 'Claude' 보임=True 제목줄=False 위치=520,72 493x637
+  [칸안] grok bot 'Grok Bot' 보임=False 제목줄=False 위치=11,430 493x279
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [ram] ramspirit 'Default IME' 보임=False 제목줄=False 위치=0,0 0x0
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 2개
+
+===== G1-다른탭에서앱이다시뜸 =====
+RamSpirit main=131644
+  [칸안] grok bot 'Grok Bot' 보임=False 제목줄=False 위치=11,430 493x279
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x604
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=11,397 493x312
+  [칸안] chrome 'Gemini' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x637
+  [칸안] chrome 'Claude' 보임=True 제목줄=False 위치=520,72 493x637
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [ram] ramspirit 'Default IME' 보임=False 제목줄=False 위치=0,0 0x0
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 2개
+
+===== G2-돌아오면제자리 =====
+RamSpirit main=131644
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x278
+  [칸안] grok bot 'Grok Bot' 보임=True 제목줄=False 위치=11,430 493x279
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=11,397 493x312
+  [칸안] chrome 'Gemini' 보임=True 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'ChatGPT' 보임=True 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x637
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x637
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [ram] ramspirit 'Default IME' 보임=False 제목줄=False 위치=0,0 0x0
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 4개
+
+===== G3-다른탭에서앱창새로생김 =====
+RamSpirit main=131644
+  [칸안] grok bot 'Grok Bot' 보임=False 제목줄=False 위치=11,430 493x300
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x604
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=11,397 493x312
+  [칸안] chrome 'Gemini' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x637
+  [칸안] chrome 'Claude' 보임=True 제목줄=False 위치=520,72 493x637
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [ram] ramspirit 'Default IME' 보임=False 제목줄=False 위치=0,0 0x0
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 2개
+
+===== G4-돌아오면새창이칸에 =====
+RamSpirit main=131644
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x278
+  [칸안] grok bot 'Grok Bot' 보임=True 제목줄=False 위치=11,430 493x279
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=11,397 493x312
+  [칸안] chrome 'Gemini' 보임=True 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'ChatGPT' 보임=True 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x637
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x637
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [ram] ramspirit 'Default IME' 보임=False 제목줄=False 위치=0,0 0x0
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 4개
+
+===== G5-지금탭에서다시뜸 =====
+RamSpirit main=131644
+  [칸안] grok bot 'Grok Bot' 보임=True 제목줄=False 위치=11,430 493x279
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x278
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=11,397 493x312
+  [칸안] chrome 'Gemini' 보임=True 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'ChatGPT' 보임=True 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x637
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x637
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [ram] ramspirit 'Default IME' 보임=False 제목줄=False 위치=0,0 0x0
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 4개
+
+대화상자 위치 57,439
+===== S1-숨은대화상자꺼냄 =====
+RamSpirit main=131644
+  [밖] grok bot 'Save As Test' 보임=True 제목줄=True 위치=57,439 400x250
+  [칸안] grok bot 'Grok Bot' 보임=True 제목줄=False 위치=11,430 493x279
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x278
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=11,397 493x312
+  [칸안] chrome 'Gemini' 보임=True 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'ChatGPT' 보임=True 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x637
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x637
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [ram] ramspirit 'Default IME' 보임=False 제목줄=False 위치=0,0 0x0
+  => 밖에 떠 있는 앱 창 1개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 4개
+
+잠김 확인 2초=잠김 7초=풀림
+대화상자 중 잠김
+===== S2-앱멈춤안내 =====
+RamSpirit main=131644
+  [ram] ramspirit 'RamSpirit-hung' 보임=True 제목줄=False 위치=11,430 493x279
+  [칸안] grok bot 'Grok Bot' 보임=True 제목줄=False 위치=11,430 493x279
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x278
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=11,397 493x312
+  [칸안] chrome 'Gemini' 보임=True 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'ChatGPT' 보임=True 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x637
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x637
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [ram] ramspirit 'Default IME' 보임=False 제목줄=False 위치=0,0 0x0
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 5개
+
+멈춤 안내 위치 11,430
+===== C1-앱닫힘 =====
+RamSpirit main=131644
+  [ram] ramspirit 'RamSpirit-hung' 보임=False 제목줄=False 위치=11,430 493x279
+  [칸안] grok bot 'Grok Bot' 보임=False 제목줄=False 위치=11,430 493x279
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=11,397 493x312
+  [칸안] chrome 'Gemini' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x637
+  [칸안] chrome 'Claude' 보임=True 제목줄=False 위치=520,72 493x637
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [ram] ramspirit 'Default IME' 보임=False 제목줄=False 위치=0,0 0x0
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 1개
+
+===== C2-눌러서다시열기 =====
+RamSpirit main=131644
+  [ram] ramspirit 'RamSpirit-hung' 보임=False 제목줄=False 위치=11,430 493x279
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x604
+  [칸안] grok bot 'Grok Bot' 보임=False 제목줄=False 위치=11,430 493x279
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=11,397 493x312
+  [칸안] chrome 'Gemini' 보임=False 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x311
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x637
+  [칸안] chrome 'Claude' 보임=True 제목줄=False 위치=520,72 493x637
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 2개
+
+===== 08-업데이트처럼다시켜기 =====
+RamSpirit main=197144
+  [칸안] chrome 'Claude' 보임=True 제목줄=False 위치=520,72 493x637
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x604
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [숨은밖] chrome 'Claude' 1044x788
+  [숨은밖] chrome 'Claude' 1044x788
+  [숨은밖] chrome 'Claude' 1044x788
+  [숨은밖] chrome 'Gemini' 1044x788
+  [숨은밖] chrome 'ChatGPT' 1044x788
+  [숨은밖] chrome 'ChatGPT' 1044x788
+  [숨은밖] grok bot 'Grok Bot' 1044x788
+  [ram] ramspirit 'Default IME' 보임=False 제목줄=False 위치=0,0 0x0
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 2개
+
+===== 08b-다시켠뒤탭2 =====
+RamSpirit main=197144
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x604
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x637
+  [칸안] chrome 'ChatGPT' 보임=True 제목줄=False 위치=520,72 493x637
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [숨은밖] chrome 'Claude' 1044x788
+  [숨은밖] chrome 'Claude' 1044x788
+  [숨은밖] chrome 'Claude' 1044x788
+  [숨은밖] chrome 'Gemini' 1044x788
+  [숨은밖] chrome 'ChatGPT' 1044x788
+  [숨은밖] grok bot 'Grok Bot' 1044x788
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 2개
+
+===== 08c-두번째다시켜기 =====
+RamSpirit main=262736
+  [칸안] chrome 'Claude' 보임=True 제목줄=False 위치=520,72 493x637
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x604
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [숨은밖] chrome 'ChatGPT' 1044x788
+  [숨은밖] chrome 'Claude' 1044x788
+  [숨은밖] chrome 'Claude' 1044x788
+  [숨은밖] chrome 'Claude' 1044x788
+  [숨은밖] chrome 'Gemini' 1044x788
+  [숨은밖] chrome 'ChatGPT' 1044x788
+  [숨은밖] grok bot 'Grok Bot' 1044x788
+  [ram] ramspirit 'Default IME' 보임=False 제목줄=False 위치=0,0 0x0
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 2개
+
+===== 08d-다시켠뒤탭3 =====
+RamSpirit main=262736
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x278
+  [칸안] grok bot 'Grok Bot' 보임=True 제목줄=False 위치=11,430 493x279
+  [칸안] chrome 'Claude' 보임=False 제목줄=False 위치=520,72 493x637
+  [칸안] chrome 'Gemini' 보임=True 제목줄=False 위치=520,397 493x312
+  [칸안] chrome 'ChatGPT' 보임=True 제목줄=False 위치=520,72 493x311
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [숨은밖] chrome 'ChatGPT' 1044x788
+  [숨은밖] chrome 'Claude' 1044x788
+  [숨은밖] chrome 'Claude' 1044x788
+  [숨은밖] chrome 'Claude' 1044x788
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 4개
+
+===== 09-다시켜며바로누르기 =====
+RamSpirit main=263114
+  [칸안] chrome 'Claude' 보임=True 제목줄=False 위치=520,72 493x637
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x604
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [숨은밖] chrome 'Gemini' 1044x788
+  [숨은밖] chrome 'ChatGPT' 1044x788
+  [숨은밖] grok bot 'Grok Bot' 1044x788
+  [숨은밖] chrome 'ChatGPT' 1044x788
+  [숨은밖] chrome 'Claude' 1044x788
+  [숨은밖] chrome 'Claude' 1044x788
+  [숨은밖] chrome 'Claude' 1044x788
+  [ram] ramspirit 'Default IME' 보임=False 제목줄=False 위치=0,0 0x0
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 2개
+
+===== 10-탭왕복 =====
+RamSpirit main=263114
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x604
+  [칸안] chrome 'ChatGPT' 보임=False 제목줄=False 위치=520,72 493x637
+  [칸안] chrome 'Claude' 보임=True 제목줄=False 위치=520,72 493x637
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [숨은밖] chrome 'Gemini' 1044x788
+  [숨은밖] chrome 'ChatGPT' 1044x788
+  [숨은밖] grok bot 'Grok Bot' 1044x788
+  [숨은밖] chrome 'Claude' 1044x788
+  [숨은밖] chrome 'Claude' 1044x788
+  [숨은밖] chrome 'Claude' 1044x788
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 2개
+
+===== 11-끄기 =====
+RamSpirit main=0
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 0개
+
+===== 12-다시켜기 =====
+RamSpirit main=131794
+  [칸안] claude 'Claude' 보임=True 제목줄=False 위치=11,105 493x604
+  [칸안] chrome 'Claude' 보임=True 제목줄=False 위치=520,72 493x637
+  [ram] ramspirit 'RamSpirit' 보임=True 제목줄=True 위치=-8,-8 1040x736
+  [ram] ramspirit 'Default IME' 보임=False 제목줄=False 위치=0,0 0x0
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 2개
+
+===== 13-끄기2 =====
+RamSpirit main=0
+  => 밖에 떠 있는 앱 창 0개, 그중 제목줄 없는 창 0개, 칸 안에 보이는 창 0개
+
+===== 설치된 파일 버전 =====
+2.3.23
+===== attach.log =====
+RamSpirit v2.3.23
+11:50:24  Claude ← 창 "Claude" (claude, WindowsForms10.Window.8.app.0.34f5582_r6_ad1)
+11:50:24  Cluade Web ← 창 "Claude" (chrome, Chrome_WidgetWin_1)
+===== 결과 =====
+통과
